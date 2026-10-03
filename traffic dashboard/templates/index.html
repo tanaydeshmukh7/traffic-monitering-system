@@ -1,0 +1,1654 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="web_standard" name="shell-type" />
+    <title>Smart Traffic Monitor</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @layer base {
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        body {
+          overscroll-behavior: none;
+        }
+        main > :first-child {
+          margin-top: 0 !important;
+        }
+        main > :last-child {
+          margin-bottom: 0 !important;
+        }
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary": "#ffffff",
+              "surface-dim": "#cbdbf5",
+              error: "#ba1a1a",
+              "surface-bright": "#f8f9ff",
+              "on-error": "#ffffff",
+              tertiary: "#000000",
+              background: "#f8f9ff",
+              "surface-variant": "#d3e4fe",
+              primary: "#000000",
+              "on-tertiary-fixed": "#001a42",
+              "secondary-container": "#d5e0f8",
+              "on-tertiary-fixed-variant": "#004395",
+              "secondary-fixed-dim": "#bcc7de",
+              "on-secondary-fixed-variant": "#3c475a",
+              "surface-container-lowest": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-primary-fixed-variant": "#3f465c",
+              "on-secondary": "#ffffff",
+              "surface-container-high": "#dce9ff",
+              "surface-container-low": "#eff4ff",
+              "inverse-surface": "#213145",
+              "on-tertiary-container": "#3980f4",
+              "primary-fixed-dim": "#bec6e0",
+              "tertiary-container": "#001a42",
+              secondary: "#545f73",
+              "surface-container-highest": "#d3e4fe",
+              "surface-container": "#e5eeff",
+              "tertiary-fixed-dim": "#adc6ff",
+              "on-secondary-fixed": "#111c2d",
+              "on-secondary-container": "#586377",
+              "on-surface-variant": "#45464d",
+              "error-container": "#ffdad6",
+              outline: "#76777d",
+              "on-surface": "#0b1c30",
+              "tertiary-fixed": "#d8e2ff",
+              "on-tertiary": "#ffffff",
+              "secondary-fixed": "#d8e3fb",
+              "on-primary-container": "#7c839b",
+              "on-primary-fixed": "#131b2e",
+              "inverse-primary": "#bec6e0",
+              "inverse-on-surface": "#eaf1ff",
+              "primary-fixed": "#dae2fd",
+              "on-background": "#0b1c30",
+              "primary-container": "#131b2e",
+              surface: "#f8f9ff",
+              "outline-variant": "#c6c6cd",
+              "surface-tint": "#565e74",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              "margin-md": "1.5rem",
+              margin: "1rem",
+              "space-xl": "1.5rem",
+              "space-lg": "1rem",
+              "space-md": "0.75rem",
+              "space-xs": "0.25rem",
+              "space-sm": "0.5rem",
+              "gutter-lg": "1.5rem",
+              "margin-lg": "2rem",
+              gutter: "1rem",
+            },
+            fontFamily: {
+              "headline-xl-mobile": ["Inter"],
+              "body-md": ["Inter"],
+              "headline-sm": ["Inter"],
+              "data-metric": ["JetBrains Mono"],
+              "body-sm": ["Inter"],
+              "label-lg": ["JetBrains Mono"],
+              "headline-xl": ["Inter"],
+              "body-lg": ["Inter"],
+              "headline-md": ["Inter"],
+              "label-sm": ["JetBrains Mono"],
+              "label-md": ["JetBrains Mono"],
+              "headline-lg": ["Inter"],
+            },
+            fontSize: {
+              "headline-xl-mobile": [
+                "24px",
+                {
+                  lineHeight: "32px",
+                  letterSpacing: "-0.015em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-md": [
+                "14px",
+                { lineHeight: "20px", letterSpacing: "0em", fontWeight: "400" },
+              ],
+              "headline-sm": [
+                "16px",
+                { lineHeight: "24px", letterSpacing: "0em", fontWeight: "600" },
+              ],
+              "data-metric": [
+                "28px",
+                {
+                  lineHeight: "32px",
+                  letterSpacing: "-0.03em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-sm": [
+                "12px",
+                {
+                  lineHeight: "16px",
+                  letterSpacing: "0.005em",
+                  fontWeight: "400",
+                },
+              ],
+              "label-lg": [
+                "13px",
+                {
+                  lineHeight: "18px",
+                  letterSpacing: "0.02em",
+                  fontWeight: "500",
+                },
+              ],
+              "headline-xl": [
+                "32px",
+                {
+                  lineHeight: "40px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-lg": [
+                "16px",
+                { lineHeight: "24px", letterSpacing: "0em", fontWeight: "400" },
+              ],
+              "headline-md": [
+                "20px",
+                {
+                  lineHeight: "28px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "label-sm": [
+                "10px",
+                {
+                  lineHeight: "14px",
+                  letterSpacing: "0.04em",
+                  fontWeight: "500",
+                },
+              ],
+              "label-md": [
+                "11px",
+                {
+                  lineHeight: "16px",
+                  letterSpacing: "0.03em",
+                  fontWeight: "500",
+                },
+              ],
+              "headline-lg": [
+                "24px",
+                {
+                  lineHeight: "32px",
+                  letterSpacing: "-0.015em",
+                  fontWeight: "600",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col"
+  >
+    <header
+      class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"
+    >
+      <div
+        class="h-16 w-full px-gutter-lg flex items-center justify-between gap-space-lg"
+      >
+        <div class="flex items-center gap-space-md">
+          <img
+            alt="Brand logo. - Primary color: #0f172a
+- Font: inter
+- Mode: light
+- Roundness: rounded-sm
+"
+            class="h-8 w-auto object-contain"
+            src="https://lh3.googleusercontent.com/aida/AEtjO1Vr9IqF06ZmDai8dmHTVYnE5CJXmc4R_iSechhhfjDdxufZTL4o-Oi48qVLKwYyUaxgJYpJYFB-ZbYd3nxaqNCxkcqHD4LWtKjtBTXPGunZbOiltQte2iSwQva700VfZd81aQhxbtbaBLYuTaSZBevRhaQiRSm49qhnIbaqd6Y506CvnhtBpxUsFU5KmVUe3fWdY-WUhvqRA-mZQuFBu-mmtLZ2eDVcAEfoDQTP286PrWPBHlA-5Gk77g"
+          />
+          <div class="flex flex-col">
+            <div class="flex items-center gap-space-sm">
+              <span
+                class="font-headline-sm text-headline-sm tracking-tight text-on-surface uppercase"
+                >Smart Traffic Monitor</span
+              ><span
+                class="font-label-sm text-label-sm px-space-xs py-0.5 rounded-lg bg-surface-container-high text-on-secondary-container uppercase tracking-wider font-semibold"
+                >v2.4 Live</span
+              >
+            </div>
+            <span
+              class="font-body-sm text-body-sm text-secondary truncate max-w-xs md:max-w-none"
+              >Dept. of Computer &amp; Electrical Engineering | Capstone
+              Project</span
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-space-md">
+          <div
+            class="hidden lg:flex items-center gap-space-sm px-space-md py-1 rounded bg-surface-container-lowest shadow-[0_1px_3px_0_rgba(15,23,42,0.08)]"
+          >
+            <span
+              class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
+            ></span
+            ><span
+              class="font-label-md text-label-md text-on-surface font-semibold uppercase"
+              >System Online</span
+            >
+          </div>
+          <div
+            class="hidden sm:flex items-center gap-space-sm px-space-md py-1 rounded bg-surface-container-lowest shadow-[0_1px_3px_0_rgba(15,23,42,0.08)]"
+          >
+            <span
+              class="material-symbols-outlined text-[16px] text-tertiary-container"
+              >usb</span
+            ><span class="font-label-md text-label-md text-secondary"
+              >ARDUINO:</span
+            ><span
+              class="font-label-md text-label-md text-on-surface font-bold uppercase"
+              >COM3 CONNECTED (115200)</span
+            >
+          </div>
+          <div
+            class="hidden md:flex items-center gap-space-xs px-space-md py-1 rounded bg-surface-container"
+          >
+            <span class="material-symbols-outlined text-[16px] text-secondary"
+              >schedule</span
+            ><span
+              class="font-label-md text-label-md text-on-surface font-semibold"
+              id="live-telemetry-clock"
+              >14:28:49.02 UTC</span
+            >
+          </div>
+          <div
+            class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"
+          >
+            <span class="material-symbols-outlined text-on-primary text-[18px]"
+              >person</span
+            >
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="w-full pt-16 bg-surface flex-1">
+      <div
+        class="flex flex-col w-full px-gutter-lg py-space-md gap-space-lg text-on-surface"
+      >
+        <!-- SUB-HEADER / HARDWARE TELEMETRY BAR -->
+        <section
+          class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-wrap items-center justify-between gap-space-md"
+        >
+          <div class="flex items-center gap-space-lg flex-wrap">
+            <div class="flex items-center gap-space-sm">
+              <span
+                class="material-symbols-outlined text-[20px] text-on-surface"
+                >traffic</span
+              >
+              <div class="flex flex-col">
+                <span
+                  class="font-label-sm text-label-sm text-secondary uppercase"
+                  >Active Node</span
+                >
+                <span class="font-headline-sm text-headline-sm text-on-surface"
+                  >Sector-04 4-Way Junction</span
+                >
+              </div>
+            </div>
+            <div
+              class="hidden xl:block w-px h-8 bg-surface-container-high"
+            ></div>
+            <div class="flex items-center gap-space-sm">
+              <span
+                class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"
+              ></span>
+              <div class="flex flex-col">
+                <span
+                  class="font-label-sm text-label-sm text-secondary uppercase"
+                  >Inference Engine</span
+                >
+                <span
+                  class="font-label-lg text-label-lg text-on-surface font-semibold"
+                  >YOLOv8 • 14.2ms (TensorRT)</span
+                >
+              </div>
+            </div>
+            <div
+              class="hidden xl:block w-px h-8 bg-surface-container-high"
+            ></div>
+            <div class="flex items-center gap-space-sm">
+              <span class="material-symbols-outlined text-[20px] text-secondary"
+                >terminal</span
+              >
+              <div class="flex flex-col">
+                <span
+                  class="font-label-sm text-label-sm text-secondary uppercase"
+                  >Serial Link</span
+                >
+                <span
+                  class="font-label-lg text-label-lg text-on-surface font-semibold"
+                  >/dev/ttyUSB0 (COM3) @ 115200</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-space-md ml-auto">
+            <div
+              class="flex items-center gap-space-xs px-space-md py-1 rounded-lg bg-surface-container-low"
+            >
+              <span
+                class="material-symbols-outlined text-[16px] text-tertiary-container"
+                >memory</span
+              >
+              <span class="font-label-sm text-label-sm text-secondary"
+                >GPIO:</span
+              >
+              <span
+                class="font-label-md text-label-md text-on-surface font-bold"
+                >D7 - D12 (Active)</span
+              >
+            </div>
+            <div
+              class="flex items-center gap-space-xs px-space-md py-1 rounded-lg bg-secondary-container text-on-secondary-container"
+            >
+              <span class="material-symbols-outlined text-[16px]">tune</span>
+              <span
+                class="font-label-md text-label-md font-semibold uppercase tracking-wider"
+                >Dynamic Adaptive</span
+              >
+            </div>
+          </div>
+        </section>
+        <!-- OVERALL TRAFFIC STATISTICS ROW -->
+        <section
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md w-full"
+        >
+          <!-- Card 1 -->
+          <div
+            class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col justify-between"
+          >
+            <div class="flex items-center justify-between">
+              <span
+                class="font-label-md text-label-md text-secondary uppercase tracking-wide"
+                >Total Vehicles</span
+              >
+              <span class="material-symbols-outlined text-[18px] text-secondary"
+                >directions_car</span
+              >
+            </div>
+            <div class="flex items-baseline gap-space-sm my-space-xs">
+              <span
+                class="font-data-metric text-data-metric text-on-surface font-bold"
+                >184</span
+              >
+              <span
+                class="font-label-sm text-label-sm text-emerald-600 font-semibold flex items-center"
+              >
+                <span class="material-symbols-outlined text-[14px]"
+                  >arrow_drop_up</span
+                >+24 (15m)
+              </span>
+            </div>
+            <div class="font-body-sm text-body-sm text-secondary truncate">
+              Across 4 tracked lane sectors
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div
+            class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col justify-between"
+          >
+            <div class="flex items-center justify-between">
+              <span
+                class="font-label-md text-label-md text-secondary uppercase tracking-wide"
+                >Total Violations</span
+              >
+              <span class="material-symbols-outlined text-[18px] text-error"
+                >warning</span
+              >
+            </div>
+            <div class="flex items-baseline gap-space-sm my-space-xs">
+              <span
+                class="font-data-metric text-data-metric text-on-surface font-bold"
+                >08</span
+              >
+              <span
+                class="font-label-sm text-label-sm bg-error-container text-on-error-container px-space-xs py-0.5 rounded font-semibold uppercase"
+                >3 Pending</span
+              >
+            </div>
+            <div class="font-body-sm text-body-sm text-secondary truncate">
+              Red light &amp; stop line infractions
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div
+            class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col justify-between"
+          >
+            <div class="flex items-center justify-between">
+              <span
+                class="font-label-md text-label-md text-secondary uppercase tracking-wide"
+                >Junction Density</span
+              >
+              <span
+                class="font-label-md text-label-md px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface font-semibold"
+                >Medium</span
+              >
+            </div>
+            <div class="flex items-baseline gap-space-sm my-space-xs">
+              <span
+                class="font-data-metric text-data-metric text-on-surface font-bold"
+                >48%</span
+              >
+              <span class="font-label-sm text-label-sm text-secondary"
+                >Load Factor</span
+              >
+            </div>
+            <div
+              class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden"
+            >
+              <div
+                class="bg-primary h-full rounded-full"
+                style="width: 48%"
+              ></div>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div
+            class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col justify-between"
+          >
+            <div class="flex items-center justify-between">
+              <span
+                class="font-label-md text-label-md text-secondary uppercase tracking-wide"
+                >Sensor Array</span
+              >
+              <span
+                class="material-symbols-outlined text-[18px] text-emerald-600"
+                >sensors</span
+              >
+            </div>
+            <div class="flex items-baseline gap-space-sm my-space-xs">
+              <span
+                class="font-data-metric text-data-metric text-on-surface font-bold"
+                >4 / 4</span
+              >
+              <span
+                class="font-label-sm text-label-sm text-emerald-600 font-semibold uppercase"
+                >Nominal</span
+              >
+            </div>
+            <div class="font-body-sm text-body-sm text-secondary truncate">
+              100% video feed capture synchronized
+            </div>
+          </div>
+        </section>
+        <!-- MULTI-LANE MONITORING 2x2 GRID -->
+        <section class="flex flex-col gap-space-sm w-full">
+          <div class="flex items-center justify-between px-space-xs">
+            <div class="flex items-center gap-space-sm">
+              <span
+                class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-tight"
+                >Multi-Lane Telemetry &amp; Vision Pipelines</span
+              >
+              <span
+                class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-surface-container-high text-secondary"
+                >4 Feeds</span
+              >
+            </div>
+            <div
+              class="flex items-center gap-space-xs text-secondary font-label-sm text-label-sm"
+            >
+              <span class="material-symbols-outlined text-[14px]"
+                >videocam</span
+              >
+              RTSP RTSP/H.264
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md w-full">
+            <!-- LANE 1 -->
+            <div
+              class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md"
+            >
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-sm">
+                  <span
+                    class="font-headline-sm text-headline-sm text-on-surface"
+                    >Lane 1 • Northbound</span
+                  >
+                  <span
+                    class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold uppercase flex items-center gap-1"
+                  >
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-emerald-500"
+                    ></span>
+                    Active
+                  </span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input checked="" class="sr-only peer" type="checkbox" />
+                  <div
+                    class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"
+                  ></div>
+                </label>
+              </div>
+              <!-- Vision Viewport -->
+              <div
+                class="relative w-full h-44 bg-slate-950 rounded-lg overflow-hidden flex items-center justify-center"
+              >
+                <div
+                  class="absolute inset-0 opacity-40 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px]"
+                ></div>
+                <!-- Bounding Boxes simulated -->
+                <div
+                  class="absolute top-6 left-10 w-28 h-20 border-2 border-blue-500 rounded flex flex-col justify-start"
+                >
+                  <span
+                    class="bg-slate-900 text-white font-label-sm text-[9px] px-1 py-0.5 self-start"
+                    >Car: 0.94</span
+                  >
+                </div>
+                <div
+                  class="absolute bottom-6 right-16 w-14 h-16 border-2 border-blue-500 rounded flex flex-col justify-start"
+                >
+                  <span
+                    class="bg-slate-900 text-white font-label-sm text-[9px] px-1 py-0.5 self-start"
+                    >Moto: 0.89</span
+                  >
+                </div>
+                <!-- Stop Line Trigger -->
+                <div
+                  class="absolute bottom-4 left-0 w-full border-b-2 border-dashed border-red-500/80 flex items-center justify-end pr-2"
+                >
+                  <span
+                    class="font-label-sm text-[9px] text-red-400 uppercase font-mono"
+                    >Stop Line Trg</span
+                  >
+                </div>
+                <!-- Overlays -->
+                <div
+                  class="absolute top-2 left-2 flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded text-white font-label-sm text-[10px]"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"
+                  ></span>
+                  CAM-01 • 1080p 30fps
+                </div>
+                <div
+                  class="absolute top-2 right-2 bg-black/60 px-2 py-0.5 rounded text-emerald-400 font-label-sm text-[10px] font-mono"
+                >
+                  YOLO: 12 BBOX
+                </div>
+              </div>
+              <!-- Data & Signal Panel -->
+              <div
+                class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs"
+              >
+                <!-- Total Vehicles -->
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between"
+                >
+                  <span
+                    class="font-label-sm text-label-sm text-secondary uppercase"
+                    >Count</span
+                  >
+                  <span
+                    class="font-data-metric text-data-metric text-on-surface font-bold"
+                    >58</span
+                  >
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-error-container text-on-error-container font-semibold uppercase"
+                      >High</span
+                    >
+                    <span class="font-body-sm text-body-sm text-secondary"
+                      >82%</span
+                    >
+                  </div>
+                </div>
+                <!-- Breakdown -->
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between font-label-sm text-label-sm"
+                >
+                  <span class="text-secondary uppercase">Classification</span>
+                  <div
+                    class="grid grid-cols-2 gap-1 py-1 text-on-surface font-mono"
+                  >
+                    <span
+                      >Cars: <strong class="text-on-surface">34</strong></span
+                    >
+                    <span
+                      >Moto: <strong class="text-on-surface">16</strong></span
+                    >
+                    <span>Bus: <strong class="text-on-surface">5</strong></span>
+                    <span>Trk: <strong class="text-on-surface">3</strong></span>
+                  </div>
+                  <div
+                    class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden"
+                  >
+                    <div class="bg-primary h-full" style="width: 82%"></div>
+                  </div>
+                </div>
+                <!-- Signal State -->
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between items-center text-center"
+                >
+                  <span
+                    class="font-label-sm text-label-sm text-secondary uppercase w-full text-left"
+                    >Signal Status</span
+                  >
+                  <div class="flex items-center gap-2 my-1">
+                    <div class="w-3.5 h-3.5 rounded-full bg-slate-300"></div>
+                    <div class="w-3.5 h-3.5 rounded-full bg-slate-300"></div>
+                    <div
+                      class="w-4 h-4 rounded-full bg-emerald-500 shadow-md ring-2 ring-emerald-200"
+                    ></div>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <span
+                      class="font-label-md text-label-md font-bold text-emerald-700 uppercase"
+                      >GREEN (18s)</span
+                    >
+                    <span class="font-label-sm text-[10px] text-secondary"
+                      >PIN D10 HIGH</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- LANE 2 -->
+            <div
+              class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md"
+            >
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-sm">
+                  <span
+                    class="font-headline-sm text-headline-sm text-on-surface"
+                    >Lane 2 • Southbound</span
+                  >
+                  <span
+                    class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold uppercase flex items-center gap-1"
+                  >
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-emerald-500"
+                    ></span>
+                    Active
+                  </span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input checked="" class="sr-only peer" type="checkbox" />
+                  <div
+                    class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"
+                  ></div>
+                </label>
+              </div>
+              <!-- Vision Viewport -->
+              <div
+                class="relative w-full h-44 bg-slate-950 rounded-lg overflow-hidden flex items-center justify-center"
+              >
+                <div
+                  class="absolute inset-0 opacity-40 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px]"
+                ></div>
+                <!-- Bounding Boxes simulated -->
+                <div
+                  class="absolute top-8 left-16 w-24 h-16 border-2 border-blue-500 rounded flex flex-col justify-start"
+                >
+                  <span
+                    class="bg-slate-900 text-white font-label-sm text-[9px] px-1 py-0.5 self-start"
+                    >Car: 0.91</span
+                  >
+                </div>
+                <div
+                  class="absolute top-12 right-20 w-32 h-20 border-2 border-blue-500 rounded flex flex-col justify-start"
+                >
+                  <span
+                    class="bg-slate-900 text-white font-label-sm text-[9px] px-1 py-0.5 self-start"
+                    >Truck: 0.88</span
+                  >
+                </div>
+                <div
+                  class="absolute bottom-4 left-0 w-full border-b-2 border-dashed border-red-500/80 flex items-center justify-end pr-2"
+                >
+                  <span
+                    class="font-label-sm text-[9px] text-red-400 uppercase font-mono"
+                    >Stop Line Trg</span
+                  >
+                </div>
+                <div
+                  class="absolute top-2 left-2 flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded text-white font-label-sm text-[10px]"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"
+                  ></span>
+                  CAM-02 • 1080p 30fps
+                </div>
+                <div
+                  class="absolute top-2 right-2 bg-black/60 px-2 py-0.5 rounded text-emerald-400 font-label-sm text-[10px] font-mono"
+                >
+                  YOLO: 08 BBOX
+                </div>
+              </div>
+              <!-- Data & Signal Panel -->
+              <div
+                class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs"
+              >
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between"
+                >
+                  <span
+                    class="font-label-sm text-label-sm text-secondary uppercase"
+                    >Count</span
+                  >
+                  <span
+                    class="font-data-metric text-data-metric text-on-surface font-bold"
+                    >42</span
+                  >
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface font-semibold uppercase"
+                      >Medium</span
+                    >
+                    <span class="font-body-sm text-body-sm text-secondary"
+                      >55%</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between font-label-sm text-label-sm"
+                >
+                  <span class="text-secondary uppercase">Classification</span>
+                  <div
+                    class="grid grid-cols-2 gap-1 py-1 text-on-surface font-mono"
+                  >
+                    <span
+                      >Cars: <strong class="text-on-surface">22</strong></span
+                    >
+                    <span
+                      >Moto: <strong class="text-on-surface">12</strong></span
+                    >
+                    <span>Bus: <strong class="text-on-surface">2</strong></span>
+                    <span>Trk: <strong class="text-on-surface">6</strong></span>
+                  </div>
+                  <div
+                    class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden"
+                  >
+                    <div class="bg-primary h-full" style="width: 55%"></div>
+                  </div>
+                </div>
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between items-center text-center"
+                >
+                  <span
+                    class="font-label-sm text-label-sm text-secondary uppercase w-full text-left"
+                    >Signal Status</span
+                  >
+                  <div class="flex items-center gap-2 my-1">
+                    <div
+                      class="w-4 h-4 rounded-full bg-red-600 shadow-md ring-2 ring-red-200"
+                    ></div>
+                    <div class="w-3.5 h-3.5 rounded-full bg-slate-300"></div>
+                    <div class="w-3.5 h-3.5 rounded-full bg-slate-300"></div>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <span
+                      class="font-label-md text-label-md font-bold text-red-700 uppercase"
+                      >RED (24s)</span
+                    >
+                    <span class="font-label-sm text-[10px] text-secondary"
+                      >PIN D8 HIGH</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- LANE 3 -->
+            <div
+              class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md"
+            >
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-sm">
+                  <span
+                    class="font-headline-sm text-headline-sm text-on-surface"
+                    >Lane 3 • Eastbound</span
+                  >
+                  <span
+                    class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold uppercase flex items-center gap-1"
+                  >
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-emerald-500"
+                    ></span>
+                    Active
+                  </span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input checked="" class="sr-only peer" type="checkbox" />
+                  <div
+                    class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"
+                  ></div>
+                </label>
+              </div>
+              <!-- Vision Viewport -->
+              <div
+                class="relative w-full h-44 bg-slate-950 rounded-lg overflow-hidden flex items-center justify-center"
+              >
+                <div
+                  class="absolute inset-0 opacity-40 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px]"
+                ></div>
+                <!-- Bounding Boxes simulated -->
+                <div
+                  class="absolute top-10 left-12 w-28 h-20 border-2 border-red-500 bg-red-500/10 rounded flex flex-col justify-start"
+                >
+                  <span
+                    class="bg-red-600 text-white font-label-sm text-[9px] px-1 py-0.5 self-start"
+                    >Violation: StopLine</span
+                  >
+                </div>
+                <div
+                  class="absolute bottom-6 right-24 w-20 h-16 border-2 border-blue-500 rounded flex flex-col justify-start"
+                >
+                  <span
+                    class="bg-slate-900 text-white font-label-sm text-[9px] px-1 py-0.5 self-start"
+                    >Car: 0.96</span
+                  >
+                </div>
+                <div
+                  class="absolute bottom-4 left-0 w-full border-b-2 border-dashed border-red-500/80 flex items-center justify-end pr-2"
+                >
+                  <span
+                    class="font-label-sm text-[9px] text-red-400 uppercase font-mono"
+                    >Stop Line Trg</span
+                  >
+                </div>
+                <div
+                  class="absolute top-2 left-2 flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded text-white font-label-sm text-[10px]"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"
+                  ></span>
+                  CAM-03 • 1080p 30fps
+                </div>
+                <div
+                  class="absolute top-2 right-2 bg-black/60 px-2 py-0.5 rounded text-emerald-400 font-label-sm text-[10px] font-mono"
+                >
+                  YOLO: 15 BBOX
+                </div>
+              </div>
+              <!-- Data & Signal Panel -->
+              <div
+                class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs"
+              >
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between"
+                >
+                  <span
+                    class="font-label-sm text-label-sm text-secondary uppercase"
+                    >Count</span
+                  >
+                  <span
+                    class="font-data-metric text-data-metric text-on-surface font-bold"
+                    >61</span
+                  >
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-error-container text-on-error-container font-semibold uppercase"
+                      >High</span
+                    >
+                    <span class="font-body-sm text-body-sm text-secondary"
+                      >88%</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between font-label-sm text-label-sm"
+                >
+                  <span class="text-secondary uppercase">Classification</span>
+                  <div
+                    class="grid grid-cols-2 gap-1 py-1 text-on-surface font-mono"
+                  >
+                    <span
+                      >Cars: <strong class="text-on-surface">39</strong></span
+                    >
+                    <span
+                      >Moto: <strong class="text-on-surface">14</strong></span
+                    >
+                    <span>Bus: <strong class="text-on-surface">4</strong></span>
+                    <span>Trk: <strong class="text-on-surface">4</strong></span>
+                  </div>
+                  <div
+                    class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden"
+                  >
+                    <div class="bg-primary h-full" style="width: 88%"></div>
+                  </div>
+                </div>
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between items-center text-center"
+                >
+                  <span
+                    class="font-label-sm text-label-sm text-secondary uppercase w-full text-left"
+                    >Signal Status</span
+                  >
+                  <div class="flex items-center gap-2 my-1">
+                    <div
+                      class="w-4 h-4 rounded-full bg-red-600 shadow-md ring-2 ring-red-200"
+                    ></div>
+                    <div class="w-3.5 h-3.5 rounded-full bg-slate-300"></div>
+                    <div class="w-3.5 h-3.5 rounded-full bg-slate-300"></div>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <span
+                      class="font-label-md text-label-md font-bold text-red-700 uppercase"
+                      >RED (42s)</span
+                    >
+                    <span class="font-label-sm text-[10px] text-secondary"
+                      >PIN D8 HIGH</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- LANE 4 -->
+            <div
+              class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md"
+            >
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-sm">
+                  <span
+                    class="font-headline-sm text-headline-sm text-on-surface"
+                    >Lane 4 • Westbound</span
+                  >
+                  <span
+                    class="font-label-sm text-label-sm px-space-xs py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold uppercase flex items-center gap-1"
+                  >
+                    <span
+                      class="w-1.5 h-1.5 rounded-full bg-emerald-500"
+                    ></span>
+                    Active
+                  </span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input checked="" class="sr-only peer" type="checkbox" />
+                  <div
+                    class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"
+                  ></div>
+                </label>
+              </div>
+              <!-- Vision Viewport -->
+              <div
+                class="relative w-full h-44 bg-slate-950 rounded-lg overflow-hidden flex items-center justify-center"
+              >
+                <div
+                  class="absolute inset-0 opacity-40 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px]"
+                ></div>
+                <!-- Bounding Boxes simulated -->
+                <div
+                  class="absolute top-12 left-24 w-24 h-16 border-2 border-blue-500 rounded flex flex-col justify-start"
+                >
+                  <span
+                    class="bg-slate-900 text-white font-label-sm text-[9px] px-1 py-0.5 self-start"
+                    >Car: 0.95</span
+                  >
+                </div>
+                <div
+                  class="absolute bottom-4 left-0 w-full border-b-2 border-dashed border-red-500/80 flex items-center justify-end pr-2"
+                >
+                  <span
+                    class="font-label-sm text-[9px] text-red-400 uppercase font-mono"
+                    >Stop Line Trg</span
+                  >
+                </div>
+                <div
+                  class="absolute top-2 left-2 flex items-center gap-1 bg-black/60 px-2 py-0.5 rounded text-white font-label-sm text-[10px]"
+                >
+                  <span
+                    class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"
+                  ></span>
+                  CAM-04 • 1080p 30fps
+                </div>
+                <div
+                  class="absolute top-2 right-2 bg-black/60 px-2 py-0.5 rounded text-emerald-400 font-label-sm text-[10px] font-mono"
+                >
+                  YOLO: 04 BBOX
+                </div>
+              </div>
+              <!-- Data & Signal Panel -->
+              <div
+                class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs"
+              >
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between"
+                >
+                  <span
+                    class="font-label-sm text-label-sm text-secondary uppercase"
+                    >Count</span
+                  >
+                  <span
+                    class="font-data-metric text-data-metric text-on-surface font-bold"
+                    >23</span
+                  >
+                  <div class="flex items-center gap-1">
+                    <span
+                      class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold uppercase"
+                      >Low</span
+                    >
+                    <span class="font-body-sm text-body-sm text-secondary"
+                      >26%</span
+                    >
+                  </div>
+                </div>
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between font-label-sm text-label-sm"
+                >
+                  <span class="text-secondary uppercase">Classification</span>
+                  <div
+                    class="grid grid-cols-2 gap-1 py-1 text-on-surface font-mono"
+                  >
+                    <span
+                      >Cars: <strong class="text-on-surface">14</strong></span
+                    >
+                    <span
+                      >Moto: <strong class="text-on-surface">6</strong></span
+                    >
+                    <span>Bus: <strong class="text-on-surface">1</strong></span>
+                    <span>Trk: <strong class="text-on-surface">2</strong></span>
+                  </div>
+                  <div
+                    class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden"
+                  >
+                    <div class="bg-primary h-full" style="width: 26%"></div>
+                  </div>
+                </div>
+                <div
+                  class="bg-surface-container-low rounded-lg p-space-sm flex flex-col justify-between items-center text-center"
+                >
+                  <span
+                    class="font-label-sm text-label-sm text-secondary uppercase w-full text-left"
+                    >Signal Status</span
+                  >
+                  <div class="flex items-center gap-2 my-1">
+                    <div class="w-3.5 h-3.5 rounded-full bg-slate-300"></div>
+                    <div
+                      class="w-4 h-4 rounded-full bg-amber-500 shadow-md ring-2 ring-amber-200"
+                    ></div>
+                    <div class="w-3.5 h-3.5 rounded-full bg-slate-300"></div>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <span
+                      class="font-label-md text-label-md font-bold text-amber-700 uppercase"
+                      >YELLOW (3s)</span
+                    >
+                    <span class="font-label-sm text-[10px] text-secondary"
+                      >PIN D9 HIGH</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- ARDUINO SIGNAL HARDWARE CONTROL PANEL -->
+        <section
+          class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md"
+        >
+          <div class="flex flex-wrap items-center justify-between gap-space-sm">
+            <div class="flex items-center gap-space-sm">
+              <span
+                class="material-symbols-outlined text-[20px] text-on-surface"
+                >developer_board</span
+              >
+              <div>
+                <span class="font-headline-sm text-headline-sm text-on-surface"
+                  >Arduino Signal Hardware Dispatcher</span
+                >
+                <span class="font-body-sm text-body-sm text-secondary block"
+                  >Direct Serial Relay actuation over USB UART COM3
+                  (ATmega328P)</span
+                >
+              </div>
+            </div>
+            <div class="flex items-center gap-space-sm">
+              <div
+                class="flex items-center bg-surface-container-low p-1 rounded-lg"
+              >
+                <button
+                  class="px-space-md py-1 rounded bg-surface-container-lowest shadow-sm font-label-md text-label-md font-semibold text-on-surface"
+                  id="mode-auto-btn"
+                >
+                  Automatic (YOLO)
+                </button>
+                <button
+                  class="px-space-md py-1 rounded text-secondary hover:text-on-surface font-label-md text-label-md font-semibold"
+                  id="mode-manual-btn"
+                >
+                  Manual Override
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="flex flex-wrap items-center justify-between gap-space-md pt-space-xs"
+          >
+            <!-- Lane Selection Tabs -->
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span
+                class="font-label-sm text-label-sm text-secondary uppercase mr-1"
+                >Target:</span
+              >
+              <button
+                class="lane-tab-btn px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold"
+              >
+                Lane 1
+              </button>
+              <button
+                class="lane-tab-btn px-space-md py-1.5 rounded-lg bg-surface-container-low text-secondary hover:text-on-surface font-label-md text-label-md font-semibold"
+              >
+                Lane 2
+              </button>
+              <button
+                class="lane-tab-btn px-space-md py-1.5 rounded-lg bg-surface-container-low text-secondary hover:text-on-surface font-label-md text-label-md font-semibold"
+              >
+                Lane 3
+              </button>
+              <button
+                class="lane-tab-btn px-space-md py-1.5 rounded-lg bg-surface-container-low text-secondary hover:text-on-surface font-label-md text-label-md font-semibold"
+              >
+                Lane 4
+              </button>
+              <button
+                class="lane-tab-btn px-space-md py-1.5 rounded-lg bg-surface-container-low text-secondary hover:text-on-surface font-label-md text-label-md font-semibold"
+              >
+                All Lanes
+              </button>
+            </div>
+            <!-- Signal Override Buttons -->
+            <div class="flex items-center gap-space-sm flex-wrap">
+              <button
+                class="flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-red-600 text-white font-label-md text-label-md font-semibold hover:bg-red-700 transition"
+                onclick="dispatchSignal('RED')"
+              >
+                <span class="w-2 h-2 rounded-full bg-white"></span> Trigger RED
+                (D8)
+              </button>
+              <button
+                class="flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-amber-500 text-slate-900 font-label-md text-label-md font-semibold hover:bg-amber-600 transition"
+                onclick="dispatchSignal('YELLOW')"
+              >
+                <span class="w-2 h-2 rounded-full bg-slate-900"></span> Trigger
+                YELLOW (D9)
+              </button>
+              <button
+                class="flex items-center gap-1.5 px-space-md py-1.5 rounded-lg bg-emerald-600 text-white font-label-md text-label-md font-semibold hover:bg-emerald-700 transition"
+                onclick="dispatchSignal('GREEN')"
+              >
+                <span class="w-2 h-2 rounded-full bg-white"></span> Trigger
+                GREEN (D10)
+              </button>
+            </div>
+            <!-- Safety & Diagnostics -->
+            <div class="flex items-center gap-space-sm">
+              <button
+                class="flex items-center gap-1 px-space-md py-1.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container-high transition"
+                onclick="pingRelay()"
+              >
+                <span class="material-symbols-outlined text-[16px]"
+                  >sensors</span
+                >
+                Ping Relay
+              </button>
+              <button
+                class="flex items-center gap-1 px-space-md py-1.5 rounded-lg bg-error text-on-error font-label-md text-label-md font-semibold hover:opacity-90 transition"
+                onclick="emergencyHalt()"
+              >
+                <span class="material-symbols-outlined text-[16px]"
+                  >emergency</span
+                >
+                All-Red Safety Stop
+              </button>
+            </div>
+          </div>
+          <!-- Micro Console Log Output -->
+          <div
+            class="bg-surface-container-low rounded-lg p-space-sm font-label-sm text-label-sm text-secondary font-mono flex items-center justify-between"
+            id="serial-terminal"
+          >
+            <span id="serial-status-text"
+              >TX &gt;&gt; [CMD:SYNC_GPIO_OK] • ACK FROM ARDUINO UNO
+              PIN_REGISTER_D: 0b01000100</span
+            >
+            <span class="text-emerald-700 font-bold">115200 BAUD ACTIVE</span>
+          </div>
+        </section>
+        <!-- RECENT MULTI-LANE ACTIVITY & VIOLATIONS TABLE -->
+        <section
+          class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md"
+        >
+          <div class="flex flex-wrap items-center justify-between gap-space-sm">
+            <div class="flex items-center gap-space-sm">
+              <span
+                class="material-symbols-outlined text-[20px] text-on-surface"
+                >shield</span
+              >
+              <div>
+                <span class="font-headline-sm text-headline-sm text-on-surface"
+                  >Recent Multi-Lane Activity &amp; Infraction Queue</span
+                >
+                <span class="font-body-sm text-body-sm text-secondary"
+                  >Logged in local SQLite buffer with synchronized inference
+                  frame captures</span
+                >
+              </div>
+            </div>
+            <!-- Filter Controls -->
+            <div class="flex items-center gap-1">
+              <span
+                class="font-label-sm text-label-sm text-secondary uppercase mr-1"
+                >Filter:</span
+              >
+              <button
+                class="table-filter-btn px-2.5 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm font-medium"
+                onclick="filterTable('all')"
+              >
+                All
+              </button>
+              <button
+                class="table-filter-btn px-2.5 py-1 rounded bg-surface-container-low text-secondary font-label-sm text-label-sm font-medium"
+                onclick="filterTable('Lane 1')"
+              >
+                Lane 1
+              </button>
+              <button
+                class="table-filter-btn px-2.5 py-1 rounded bg-surface-container-low text-secondary font-label-sm text-label-sm font-medium"
+                onclick="filterTable('Lane 2')"
+              >
+                Lane 2
+              </button>
+              <button
+                class="table-filter-btn px-2.5 py-1 rounded bg-surface-container-low text-secondary font-label-sm text-label-sm font-medium"
+                onclick="filterTable('Lane 3')"
+              >
+                Lane 3
+              </button>
+              <button
+                class="table-filter-btn px-2.5 py-1 rounded bg-surface-container-low text-secondary font-label-sm text-label-sm font-medium"
+                onclick="filterTable('Lane 4')"
+              >
+                Lane 4
+              </button>
+            </div>
+          </div>
+          <!-- Table Container -->
+          <div class="overflow-x-auto w-full">
+            <table class="w-full text-left font-body-md text-body-md">
+              <thead>
+                <tr
+                  class="bg-surface-container-low text-secondary font-label-sm text-label-sm uppercase tracking-wider"
+                >
+                  <th class="py-2.5 px-space-md">Lane</th>
+                  <th class="py-2.5 px-space-md">Vehicle</th>
+                  <th class="py-2.5 px-space-md">Event / Infraction</th>
+                  <th class="py-2.5 px-space-md">Timestamp</th>
+                  <th class="py-2.5 px-space-md">Confidence</th>
+                  <th class="py-2.5 px-space-md text-right">Evidence</th>
+                </tr>
+              </thead>
+              <tbody
+                class="divide-y divide-surface-container-high font-body-sm text-body-sm text-on-surface"
+                id="violation-table-body"
+              >
+                <!-- Row 1 -->
+                <tr
+                  class="hover:bg-surface-container-low/50 transition"
+                  data-lane="Lane 3"
+                >
+                  <td class="py-3 px-space-md font-semibold">Lane 3 (EB)</td>
+                  <td class="py-3 px-space-md">
+                    <span class="flex items-center gap-1.5"
+                      ><span
+                        class="material-symbols-outlined text-[16px] text-secondary"
+                        >directions_car</span
+                      >
+                      Sedan</span
+                    >
+                  </td>
+                  <td class="py-3 px-space-md">
+                    <span
+                      class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold uppercase"
+                    >
+                      <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                      Red Light Jump
+                    </span>
+                  </td>
+                  <td class="py-3 px-space-md font-mono text-secondary">
+                    14:32:05.18
+                  </td>
+                  <td class="py-3 px-space-md font-mono">94.8%</td>
+                  <td class="py-3 px-space-md text-right">
+                    <button
+                      class="font-label-sm text-label-sm px-2 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface font-semibold inline-flex items-center gap-1"
+                      onclick="previewEvidence('FRAME_143205')"
+                    >
+                      <span class="material-symbols-outlined text-[14px]"
+                        >visibility</span
+                      >
+                      View Frame
+                    </button>
+                  </td>
+                </tr>
+                <!-- Row 2 -->
+                <tr
+                  class="hover:bg-surface-container-low/50 transition"
+                  data-lane="Lane 1"
+                >
+                  <td class="py-3 px-space-md font-semibold">Lane 1 (NB)</td>
+                  <td class="py-3 px-space-md">
+                    <span class="flex items-center gap-1.5"
+                      ><span
+                        class="material-symbols-outlined text-[16px] text-secondary"
+                        >two_wheeler</span
+                      >
+                      Motorcycle</span
+                    >
+                  </td>
+                  <td class="py-3 px-space-md">
+                    <span
+                      class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-label-sm text-label-sm font-semibold uppercase"
+                    >
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-amber-500"
+                      ></span>
+                      Stop Line Incursion
+                    </span>
+                  </td>
+                  <td class="py-3 px-space-md font-mono text-secondary">
+                    14:31:49.80
+                  </td>
+                  <td class="py-3 px-space-md font-mono">91.2%</td>
+                  <td class="py-3 px-space-md text-right">
+                    <button
+                      class="font-label-sm text-label-sm px-2 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface font-semibold inline-flex items-center gap-1"
+                      onclick="previewEvidence('FRAME_143149')"
+                    >
+                      <span class="material-symbols-outlined text-[14px]"
+                        >visibility</span
+                      >
+                      View Frame
+                    </button>
+                  </td>
+                </tr>
+                <!-- Row 3 -->
+                <tr
+                  class="hover:bg-surface-container-low/50 transition"
+                  data-lane="Lane 2"
+                >
+                  <td class="py-3 px-space-md font-semibold">Lane 2 (SB)</td>
+                  <td class="py-3 px-space-md">
+                    <span class="flex items-center gap-1.5"
+                      ><span
+                        class="material-symbols-outlined text-[16px] text-secondary"
+                        >local_shipping</span
+                      >
+                      Heavy Truck</span
+                    >
+                  </td>
+                  <td class="py-3 px-space-md">
+                    <span
+                      class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold uppercase"
+                    >
+                      Normal Flow Peak
+                    </span>
+                  </td>
+                  <td class="py-3 px-space-md font-mono text-secondary">
+                    14:30:11.44
+                  </td>
+                  <td class="py-3 px-space-md font-mono">96.3%</td>
+                  <td class="py-3 px-space-md text-right">
+                    <button
+                      class="font-label-sm text-label-sm px-2 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface font-semibold inline-flex items-center gap-1"
+                      onclick="previewEvidence('FRAME_143011')"
+                    >
+                      <span class="material-symbols-outlined text-[14px]"
+                        >visibility</span
+                      >
+                      View Frame
+                    </button>
+                  </td>
+                </tr>
+                <!-- Row 4 -->
+                <tr
+                  class="hover:bg-surface-container-low/50 transition"
+                  data-lane="Lane 4"
+                >
+                  <td class="py-3 px-space-md font-semibold">Lane 4 (WB)</td>
+                  <td class="py-3 px-space-md">
+                    <span class="flex items-center gap-1.5"
+                      ><span
+                        class="material-symbols-outlined text-[16px] text-secondary"
+                        >directions_car</span
+                      >
+                      SUV</span
+                    >
+                  </td>
+                  <td class="py-3 px-space-md">
+                    <span
+                      class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-label-sm text-label-sm font-semibold uppercase"
+                    >
+                      <span
+                        class="w-1.5 h-1.5 rounded-full bg-amber-500"
+                      ></span>
+                      Speed Warning (54 km/h)
+                    </span>
+                  </td>
+                  <td class="py-3 px-space-md font-mono text-secondary">
+                    14:28:32.09
+                  </td>
+                  <td class="py-3 px-space-md font-mono">89.7%</td>
+                  <td class="py-3 px-space-md text-right">
+                    <button
+                      class="font-label-sm text-label-sm px-2 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface font-semibold inline-flex items-center gap-1"
+                      onclick="previewEvidence('FRAME_142832')"
+                    >
+                      <span class="material-symbols-outlined text-[14px]"
+                        >visibility</span
+                      >
+                      View Frame
+                    </button>
+                  </td>
+                </tr>
+                <!-- Row 5 -->
+                <tr
+                  class="hover:bg-surface-container-low/50 transition"
+                  data-lane="Lane 3"
+                >
+                  <td class="py-3 px-space-md font-semibold">Lane 3 (EB)</td>
+                  <td class="py-3 px-space-md">
+                    <span class="flex items-center gap-1.5"
+                      ><span
+                        class="material-symbols-outlined text-[16px] text-secondary"
+                        >directions_bus</span
+                      >
+                      City Bus</span
+                    >
+                  </td>
+                  <td class="py-3 px-space-md">
+                    <span
+                      class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold uppercase"
+                    >
+                      Priority Transit Green Wave
+                    </span>
+                  </td>
+                  <td class="py-3 px-space-md font-mono text-secondary">
+                    14:27:00.62
+                  </td>
+                  <td class="py-3 px-space-md font-mono">98.1%</td>
+                  <td class="py-3 px-space-md text-right">
+                    <button
+                      class="font-label-sm text-label-sm px-2 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface font-semibold inline-flex items-center gap-1"
+                      onclick="previewEvidence('FRAME_142700')"
+                    >
+                      <span class="material-symbols-outlined text-[14px]"
+                        >visibility</span
+                      >
+                      View Frame
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+      <script>
+        let currentTargetLane = "Lane 1";
+
+        // Lane selection tabs
+        document.querySelectorAll(".lane-tab-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document.querySelectorAll(".lane-tab-btn").forEach((b) => {
+              b.className =
+                "lane-tab-btn px-space-md py-1.5 rounded-lg bg-surface-container-low text-secondary hover:text-on-surface font-label-md text-label-md font-semibold";
+            });
+            btn.className =
+              "lane-tab-btn px-space-md py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold";
+            currentTargetLane = btn.textContent.trim();
+            logSerial(`TARGET LANE CHANGED TO [${currentTargetLane}]`);
+          });
+        });
+
+        // Mode Toggle
+        const autoBtn = document.getElementById("mode-auto-btn");
+        const manualBtn = document.getElementById("mode-manual-btn");
+
+        autoBtn.addEventListener("click", () => {
+          autoBtn.className =
+            "px-space-md py-1 rounded bg-surface-container-lowest shadow-sm font-label-md text-label-md font-semibold text-on-surface";
+          manualBtn.className =
+            "px-space-md py-1 rounded text-secondary hover:text-on-surface font-label-md text-label-md font-semibold";
+          logSerial("OP_MODE: DYNAMIC_ADAPTIVE_YOLO RESTORED");
+        });
+
+        manualBtn.addEventListener("click", () => {
+          manualBtn.className =
+            "px-space-md py-1 rounded bg-surface-container-lowest shadow-sm font-label-md text-label-md font-semibold text-on-surface";
+          autoBtn.className =
+            "px-space-md py-1 rounded text-secondary hover:text-on-surface font-label-md text-label-md font-semibold";
+          logSerial(
+            "OP_MODE: MANUAL_OVERRIDE ENGAGED - YOLO ACTUATION SUSPENDED",
+          );
+        });
+
+        function logSerial(msg) {
+          const el = document.getElementById("serial-status-text");
+          if (el) {
+            const now = new Date().toISOString().substring(11, 23);
+            el.textContent = `TX >> [${now}] ${msg}`;
+          }
+        }
+
+        function dispatchSignal(color) {
+          logSerial(
+            `MANUAL_COMMAND_DISPATCH: SET_${currentTargetLane.toUpperCase().replace(" ", "_")}_${color} -> ACK OK`,
+          );
+        }
+
+        function pingRelay() {
+          logSerial("UART_PING -> ARDUINO UNO (COM3) RTT: 2.4ms (CRC32: PASS)");
+        }
+
+        function emergencyHalt() {
+          logSerial(
+            "EMERGENCY_HALT: BROADCAST ALL-RED (D8, D11, D14, D17 HIGH)",
+          );
+          alert("EMERGENCY ALL-RED COMMAND BROADCASTED TO HARDWARE RELAYS");
+        }
+
+        function previewEvidence(id) {
+          logSerial(
+            `FETCH_BUFFER_SNAPSHOT: ${id}.jpg [1920x1080 YOLOV8_INFER_OVERLAY]`,
+          );
+        }
+
+        function filterTable(lane) {
+          document.querySelectorAll(".table-filter-btn").forEach((btn) => {
+            btn.className =
+              "table-filter-btn px-2.5 py-1 rounded bg-surface-container-low text-secondary font-label-sm text-label-sm font-medium";
+          });
+          event.target.className =
+            "table-filter-btn px-2.5 py-1 rounded bg-primary text-on-primary font-label-sm text-label-sm font-medium";
+
+          const rows = document.querySelectorAll("#violation-table-body tr");
+          rows.forEach((r) => {
+            if (lane === "all" || r.getAttribute("data-lane") === lane) {
+              r.style.display = "";
+            } else {
+              r.style.display = "none";
+            }
+          });
+        }
+      </script>
+    </main>
+    <footer
+      class="w-full bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] py-space-sm"
+    >
+      <div
+        class="w-full px-gutter-lg flex flex-col sm:flex-row items-center justify-between gap-space-xs text-secondary font-label-sm text-label-sm"
+      >
+        <span
+          >© 2025 Smart Multi-Lane Traffic Monitoring System • Capstone Thesis
+          Instrumentation</span
+        >
+        <div class="flex items-center gap-space-md">
+          <span class="flex items-center gap-1"
+            ><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            YOLOv8 Inference Active</span
+          ><span>Arduino Uno R3 FW 1.0.4</span>
+        </div>
+      </div>
+    </footer>
+    <script>
+      function updateTelemetryClock() {
+        const d = new Date();
+        const h = String(d.getUTCHours()).padStart(2, "0");
+        const m = String(d.getUTCMinutes()).padStart(2, "0");
+        const s = String(d.getUTCSeconds()).padStart(2, "0");
+        const ms = String(Math.floor(d.getUTCMilliseconds() / 10)).padStart(
+          2,
+          "0",
+        );
+        const el = document.getElementById("live-telemetry-clock");
+        if (el) {
+          el.textContent = `${h}:${m}:${s}.${ms} UTC`;
+        }
+      }
+      setInterval(updateTelemetryClock, 50);
+      updateTelemetryClock();
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
